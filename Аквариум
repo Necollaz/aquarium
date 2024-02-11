@@ -1,0 +1,180 @@
+internal class Program
+{
+    private static void Main(string[] args)
+    {
+        Aquarium aquarium = new Aquarium(3);
+        aquarium.ShowMenu();
+    }
+}
+
+public class Fish
+{
+    public Fish(string name, int age)
+    {
+        Name = name;
+        Age = age;
+    }
+
+    public string Name { get; private set; }
+    public int Age { get; private set; }
+
+    public void GetAgeOneCycle()
+    {
+        Age--;
+    }
+
+    public void ShowInfo()
+    {
+        Console.WriteLine($"Рыба - {Name}, возраст - {Age}.");
+    }
+
+}
+
+public class Aquarium
+{
+    private List<Fish> _fishes = new List<Fish>();
+    private int _maxFishCapacity;
+
+    public Aquarium(int maxFish)
+    {
+        _maxFishCapacity = maxFish;
+    }
+
+    public void ShowMenu()
+    {
+        const string CommandAddFish = "1";
+        const string CommandRemoveFish = "2";
+        const string CommandExit = "3";
+
+        bool isStart = true;
+
+        while (isStart)
+        {
+            Console.WriteLine("Ваш аквариум.");
+            ShowAllFishes();
+            Console.WriteLine($"Максимальное количество рыб в аквариуме: {_maxFishCapacity} шт.");
+            Console.WriteLine($"{CommandAddFish} - добавить рыбу.");
+            Console.WriteLine($"{CommandRemoveFish} - убрать рыбу.");
+            Console.WriteLine($"{CommandExit} - выйти.");
+            string userInput = Console.ReadLine();
+
+            switch (userInput)
+            {
+                case CommandAddFish:
+                    AddFish();
+                    break;
+
+                case CommandRemoveFish:
+                    RemoveFish();
+                    break;
+
+                case CommandExit:
+                    isStart = false;
+                    continue;
+
+                default:
+                    Console.WriteLine("Такой команды нет.");
+                    break;
+            }
+            if (isStart)
+            {
+                AgeAllFishes();
+                RemoveOldFishes();
+            }
+
+        Console.Clear();
+
+        }
+
+        Console.WriteLine("Нажмите любую клавишу для выхода.");
+        Console.ReadKey();
+    }
+
+    private bool AddFish()
+    {
+        if(_fishes.Count < _maxFishCapacity)
+        {
+            Console.WriteLine("Введите имя рыбы: ");
+            string name = Console.ReadLine();
+            Console.WriteLine("Введите возраст рыбы: ");
+            int age;
+
+            if(int.TryParse(Console.ReadLine(), out age))
+            {
+                Fish newFish = new Fish(name, age);
+                _fishes.Add(newFish);
+                Console.WriteLine("Рыба добавлена в аквариум.");
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Не верный ввод возраста. Рыба не добавлена в аквариум.");
+                Console.ReadKey();
+                return false;
+            }
+        }
+        else
+        {
+            Console.WriteLine($"Аквариум переполнен. Максимальное число рыб - {_maxFishCapacity} шт.");
+            Console.ReadKey();
+            return false;
+        }
+    }
+
+    private void AgeAllFishes()
+    {
+        foreach (var fish in _fishes)
+        {
+            fish.GetAgeOneCycle();
+        }
+    }
+
+    private void RemoveFish()
+    {
+        Console.WriteLine("Введите имя рыбы для удаления: ");
+        string fishName = Console.ReadLine().ToLower();
+        bool found = false;
+
+        for (int i = _fishes.Count - 1; i >= 0; i--)
+        {
+            if (_fishes[i].Name.Equals(fishName, StringComparison.OrdinalIgnoreCase))
+            {
+                _fishes.RemoveAt(i);
+                found = true;
+                Console.WriteLine("Рыба удалена из аквариума.");
+                break;
+            }
+        }
+
+        if (found == false)
+        {
+            Console.WriteLine("Такой рыбы в аквариуме нет.");
+        }
+    }
+
+    private void RemoveOldFishes()
+    {
+        for (int i = _fishes.Count - 1; i >= 0; i--)
+        {
+            if (_fishes[i].Age <= 0)
+            {
+                _fishes.RemoveAt(i);
+            }
+        }
+    }
+
+    private void ShowAllFishes()
+    {
+        if(_fishes.Count > 0)
+        {
+            foreach (var fish in _fishes)
+            {
+                fish.ShowInfo();
+            }
+        }
+        else
+        {
+            Console.WriteLine("В аквариуме нет рыб.");
+        }
+    }
+}
