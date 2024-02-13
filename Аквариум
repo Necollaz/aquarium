@@ -46,9 +46,9 @@ public class Aquarium
         const string CommandRemoveFish = "2";
         const string CommandExit = "3";
 
-        bool isStart = true;
+        bool isLaunchMenu = true;
 
-        while (isStart)
+        while (isLaunchMenu)
         {
             Console.WriteLine("Ваш аквариум.");
             ShowAllFishes();
@@ -69,7 +69,7 @@ public class Aquarium
                     break;
 
                 case CommandExit:
-                    isStart = false;
+                    isLaunchMenu = false;
                     continue;
 
                 default:
@@ -77,9 +77,9 @@ public class Aquarium
                     break;
             }
 
-            if (isStart)
+            if (isLaunchMenu)
             {
-                AgeAllFishes();
+                GetAgeAllFishes();
                 RemoveDeadFishes();
             }
 
@@ -122,7 +122,7 @@ public class Aquarium
         }
     }
 
-    private void AgeAllFishes()
+    private void GetAgeAllFishes()
     {
         foreach (var fish in _fishes)
         {
