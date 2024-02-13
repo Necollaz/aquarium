@@ -27,7 +27,6 @@ public class Fish
     {
         Console.WriteLine($"Рыба - {Name}, возраст - {Age}.");
     }
-
 }
 
 public class Aquarium
@@ -65,7 +64,7 @@ public class Aquarium
                     break;
 
                 case CommandRemoveFish:
-                    RemoveFish();
+                    RemoveRandomFish();
                     break;
 
                 case CommandExit:
@@ -76,18 +75,19 @@ public class Aquarium
                     Console.WriteLine("Такой команды нет.");
                     break;
             }
+
             if (isStart)
             {
                 AgeAllFishes();
                 RemoveOldFishes();
             }
 
-        Console.Clear();
-
+            Thread.Sleep(1000);
+            Console.Clear();
         }
 
-        Console.WriteLine("Нажмите любую клавишу для выхода.");
         Console.ReadKey();
+        Console.WriteLine("Нажмите любую клавишу для выхода.");
     }
 
     private bool AddFish()
@@ -129,26 +129,18 @@ public class Aquarium
         }
     }
 
-    private void RemoveFish()
+    private void RemoveRandomFish()
     {
-        Console.WriteLine("Введите имя рыбы для удаления: ");
-        string fishName = Console.ReadLine().ToLower();
-        bool found = false;
+        Random random = new Random();
 
-        for (int i = _fishes.Count - 1; i >= 0; i--)
+        if(_fishes.Count > 0)
         {
-            if (_fishes[i].Name.Equals(fishName, StringComparison.OrdinalIgnoreCase))
-            {
-                _fishes.RemoveAt(i);
-                found = true;
-                Console.WriteLine("Рыба удалена из аквариума.");
-                break;
-            }
+            int randomIndex = random.Next(0, _fishes.Count);
+            _fishes.RemoveAt(randomIndex);
         }
-
-        if (found == false)
+        else
         {
-            Console.WriteLine("Такой рыбы в аквариуме нет.");
+            Console.WriteLine("Рыб в аквариуме нет.");
         }
     }
 
