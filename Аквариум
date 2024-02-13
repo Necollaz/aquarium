@@ -83,7 +83,6 @@ public class Aquarium
                 RemoveDeadFishes();
             }
 
-            Thread.Sleep(1000);
             Console.Clear();
         }
 
@@ -91,7 +90,7 @@ public class Aquarium
         Console.WriteLine("Нажмите любую клавишу для выхода.");
     }
 
-    private bool AddFish()
+    private void AddFish()
     {
         if(_fishes.Count < _maxFishCapacity)
         {
@@ -105,20 +104,17 @@ public class Aquarium
                 Fish newFish = new Fish(name, age);
                 _fishes.Add(newFish);
                 Console.WriteLine("Рыба добавлена в аквариум.");
-                return true;
             }
             else
             {
                 Console.WriteLine("Не верный ввод возраста. Рыба не добавлена в аквариум.");
                 Console.ReadKey();
-                return false;
             }
         }
         else
         {
             Console.WriteLine($"Аквариум переполнен. Максимальное число рыб - {_maxFishCapacity} шт.");
             Console.ReadKey();
-            return false;
         }
     }
 
