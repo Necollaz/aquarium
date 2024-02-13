@@ -20,7 +20,8 @@ public class Fish
 
     public void GetAgeOneCycle()
     {
-        Age--;
+        if(Age > 0)
+            Age--;
     }
 
     public void ShowInfo()
@@ -79,7 +80,7 @@ public class Aquarium
             if (isStart)
             {
                 AgeAllFishes();
-                RemoveOldFishes();
+                RemoveDeadFishes();
             }
 
             Thread.Sleep(1000);
@@ -144,7 +145,7 @@ public class Aquarium
         }
     }
 
-    private void RemoveOldFishes()
+    private void RemoveDeadFishes()
     {
         for (int i = _fishes.Count - 1; i >= 0; i--)
         {
