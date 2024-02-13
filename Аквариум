@@ -18,7 +18,7 @@ public class Fish
     public string Name { get; private set; }
     public int Age { get; private set; }
 
-    public void GetAgeOneCycle()
+    public void AgeOneCycle()
     {
         if(Age > 0)
             Age--;
@@ -79,7 +79,7 @@ public class Aquarium
 
             if (isLaunchMenu)
             {
-                GetAgeAllFishes();
+                UpdateAllFishesAge();
                 RemoveDeadFishes();
             }
 
@@ -118,11 +118,11 @@ public class Aquarium
         }
     }
 
-    private void GetAgeAllFishes()
+    private void UpdateAllFishesAge()
     {
         foreach (var fish in _fishes)
         {
-            fish.GetAgeOneCycle();
+            fish.AgeOneCycle();
         }
     }
 
