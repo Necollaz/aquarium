@@ -3,7 +3,7 @@ internal class Program
     private static void Main(string[] args)
     {
         Aquarium aquarium = new Aquarium(3);
-        aquarium.ShowMenu();
+        aquarium.Work();
     }
 }
 
@@ -18,7 +18,7 @@ public class Fish
     public string Name { get; private set; }
     public int Age { get; private set; }
 
-    public void AgeOneCycle()
+    public void DecreaseAge()
     {
         if(Age > 0)
             Age--;
@@ -40,15 +40,15 @@ public class Aquarium
         _maxFishCapacity = maxFish;
     }
 
-    public void ShowMenu()
+    public void Work()
     {
         const string CommandAddFish = "1";
         const string CommandRemoveFish = "2";
         const string CommandExit = "3";
 
-        bool isLaunchMenu = true;
+        bool isWork = true;
 
-        while (isLaunchMenu)
+        while (isWork)
         {
             Console.WriteLine("Ваш аквариум.");
             ShowAllFishes();
@@ -69,17 +69,17 @@ public class Aquarium
                     break;
 
                 case CommandExit:
-                    isLaunchMenu = false;
-                    continue;
+                    isWork = false;
+                    break;
 
                 default:
                     Console.WriteLine("Такой команды нет.");
                     break;
             }
 
-            if (isLaunchMenu)
+            if (isWork)
             {
-                UpdateAllFishesAge();
+                GrowOldFishes();
                 RemoveDeadFishes();
             }
 
@@ -118,11 +118,11 @@ public class Aquarium
         }
     }
 
-    private void UpdateAllFishesAge()
+    private void GrowOldFishes()
     {
         foreach (var fish in _fishes)
         {
-            fish.AgeOneCycle();
+            fish.DecreaseAge();
         }
     }
 
