@@ -9,7 +9,7 @@ internal class Program
 
 public class Fish
 {
-    private const int MaxAge = 10;
+    private int MaxAge = 10;
 
     public Fish(string name, int age)
     {
