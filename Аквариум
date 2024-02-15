@@ -9,7 +9,7 @@ internal class Program
 
 public class Fish
 {
-    private int MaxAge = 10;
+    private int _maxAge = 10;
 
     public Fish(string name, int age)
     {
@@ -22,7 +22,7 @@ public class Fish
 
     public void IncreaseAge()
     {
-        if(Age < MaxAge)
+        if(Age < _maxAge)
             Age++;
     }
 
@@ -33,7 +33,7 @@ public class Fish
 
     public bool IsDead()
     {
-        return Age >= MaxAge;
+        return Age >= _maxAge;
     }
 }
 
