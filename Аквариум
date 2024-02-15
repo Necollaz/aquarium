@@ -94,7 +94,7 @@ public class Aquarium
         }
 
         Console.ReadKey();
-        Console.WriteLine("Нажмите любую клавишу для выхода.");
+        Console.WriteLine("Нажмите любую клавишу чтобы продолжить.");
     }
 
     private void AddFish()
